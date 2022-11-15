@@ -18,7 +18,7 @@ teardown:
     docker-compose down -v
 
 test:
-    cargo nextest run
+    cargo nextest run --workspace
 
 fmt: _fmt _clippy
 

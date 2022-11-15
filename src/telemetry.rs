@@ -1,12 +1,6 @@
-use std::str::FromStr;
-
 use serde::Deserialize;
 
-use tracing_subscriber::{
-    fmt,
-    prelude::*,
-    EnvFilter, Registry,
-};
+use tracing_subscriber::{fmt, prelude::*, EnvFilter, Registry};
 
 use crate::config::Config;
 

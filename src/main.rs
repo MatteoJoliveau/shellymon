@@ -6,7 +6,12 @@ use shellymon::{config::Config, telemetry, Application};
 #[derive(Debug, Parser)]
 #[command(author, version, about, long_about = None)]
 pub struct Args {
-    #[arg(short = 'C', long, env = "SHELLYMON_CONFIG_PATH", default_value = "config.yml")]
+    #[arg(
+        short = 'C',
+        long,
+        env = "SHELLYMON_CONFIG_PATH",
+        default_value = "config.yml"
+    )]
     config: PathBuf,
 }
 

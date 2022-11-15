@@ -3,7 +3,7 @@ use std::path::PathBuf;
 use config::{ConfigError, Environment, File};
 use serde::Deserialize;
 
-use crate::{telemetry::LogFormat, receiver::ReceiverConfig};
+use crate::{receiver::ReceiverConfig, telemetry::LogFormat};
 
 #[derive(Debug, Deserialize)]
 pub struct Config {

@@ -16,7 +16,7 @@ pub struct ReceiverConfig {
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "snake_case")]
 pub enum ReceiverOptions {
-    Mqtt(MqttOptions)
+    Mqtt(MqttOptions),
 }
 
 impl ReceiverOptions {
@@ -28,7 +28,9 @@ impl ReceiverOptions {
 }
 
 pub async fn start(cfg: ReceiverConfig) -> Result<(), ReceiverError> {
-    let name = cfg.name.unwrap_or_else(|| format!("{} receiver", cfg.options.label()));
+    let name = cfg
+        .name
+        .unwrap_or_else(|| format!("{} receiver", cfg.options.label()));
     match cfg.options {
         ReceiverOptions::Mqtt(mqtt) => MqttReceiver::new(name, mqtt).start().await,
     }

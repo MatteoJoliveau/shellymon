@@ -3,6 +3,7 @@ use std::time::Duration;
 use paho_mqtt::{ConnectOptionsBuilder, CreateOptionsBuilder};
 use secstr::SecUtf8;
 use serde::Deserialize;
+use shelly_rpc::notification::NotificationFrame;
 
 use super::ReceiverError;
 
@@ -42,25 +43,36 @@ impl MqttReceiver {
             .password(self.opts.password.unsecure())
             .finalize();
 
-        let mut stream = client.get_stream(32);
+        let stream = client.get_stream(32);
 
-        client.connect_with_callbacks(
-            opts,
-            |_client, port| {
-                tracing::info!("MQTT receiver started {port}");
-            },
-            |_client, port, errno| {
-                tracing::error!(
-                    "MQTT receiver failed to start {port} {}",
-                    paho_mqtt::error_message(errno)
-                );
-            },
-        ).await?;
+        client
+            .connect_with_callbacks(
+                opts,
+                |_client, port| {
+                    tracing::info!("MQTT receiver started {port}");
+                },
+                |_client, port, errno| {
+                    tracing::error!(
+                        "MQTT receiver failed to start {port} {}",
+                        paho_mqtt::error_message(errno)
+                    );
+                },
+            )
+            .await?;
 
-        client.subscribe_many(&["hello"], &[paho_mqtt::QOS_1]).await?;
+        client
+            .subscribe_many(&["+/events/rpc"], &[paho_mqtt::QOS_1])
+            .await?;
 
         while let Some(msg) = stream.recv().await? {
-            tracing::info!(%msg, "received");
+            match NotificationFrame::try_from(msg.payload()) {
+                Ok(notification) => {
+                    tracing::info!(topic = msg.topic(), notification = ?notification, "received")
+                }
+                Err(error) => {
+                    tracing::error!(topic = msg.topic(), msg = %msg.payload_str(), %error, "error deserializing Shelly notification")
+                }
+            }
         }
 
         Ok(())

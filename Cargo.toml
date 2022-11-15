@@ -4,6 +4,9 @@ version = "0.1.0"
 edition = "2021"
 authors = ["Matteo Joliveau <matteo@matteojoliveau.com>"]
 
+[workspace]
+members = ["shelly-rpc"]
+
 [dependencies]
 tokio = { version = "1", features = ["full"] }
 thiserror = "1"
@@ -19,3 +22,4 @@ secstr = { version = "0.5.1", features = ["serde"] }
 futures = "0.3.25"
 paho-mqtt = "0.11.1"
 async-channel = "1.7.1"
+shelly_rpc = { path = "./shelly-rpc"}
