@@ -1,5 +1,5 @@
-pub mod notification;
 pub mod components;
+pub mod notification;
 
 use serde::{Deserialize, Serialize};
 
@@ -29,4 +29,3 @@ impl<T, E> ResponseFrame<T, E> {
         })
     }
 }
-

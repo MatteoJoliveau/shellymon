@@ -242,12 +242,12 @@ mod test {
             panic!("payload is not NotifyEvent");
         };
         assert_eq!(event.timestamp, 1631266595.44);
-        
+
         let event = event.events.first().unwrap();
         assert_eq!(event.timestamp, 1631266595.44);
         assert_eq!(event.id, 0);
         assert_eq!(&event.event, "single_push");
-        
+
         #[derive(Deserialize)]
         struct Component {
             component: String,

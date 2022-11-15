@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 
 use clap::Parser;
-use shellymon::{config::Config};
+use shellymon::config::Config;
 
 #[derive(Debug, Parser)]
 #[command(author, version, about, long_about = None)]

@@ -19,4 +19,3 @@ pub struct Switch {
     pub output: bool,
     pub source: String,
 }
-
