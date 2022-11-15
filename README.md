@@ -1,5 +1,7 @@
 # ShellyMon
 
+[![CI](https://github.com/MatteoJoliveau/shellymon/actions/workflows/ci.yml/badge.svg)](https://github.com/MatteoJoliveau/shellymon/actions/workflows/ci.yml)
+
 A monitoring daemon for [Shelly] devices, compatible with [MQTT] and [Prometheus].
 
 ## License
