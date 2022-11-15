@@ -17,7 +17,13 @@
             cargo-watch
             cargo-nextest
             mosquitto
+            openssl_3
+            pkg-config
           ];
+
+           shellHook = with pkgs; ''
+              export LD_LIBRARY_PATH=${openssl_3.out}/lib:$LD_LIBRARY_PATH
+            '';
         };
       });
 }

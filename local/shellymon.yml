@@ -1,0 +1,7 @@
+receivers:
+  - name: example
+    mqtt:
+      host: localhost
+      port: 1883
+      username: shelly
+      password: shelly
