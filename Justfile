@@ -29,13 +29,13 @@ teardown:
 test:
     cargo nextest run --workspace
 
-fmt: _fmt _clippy
-
-_fmt:
+fmt:
   cargo fmt
-
-_clippy:
   cargo clippy --fix --allow-dirty --allow-staged
+
+lint: fmt
+  cargo fmt --all -- --check
+  cargo clippy -- -D warnings
 
 check: fmt test
     cargo check

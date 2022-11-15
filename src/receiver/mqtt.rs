@@ -65,7 +65,12 @@ impl MqttReceiver {
             .await?;
 
         while let Some(msg) = stream.recv().await? {
-            let _span = tracing::info_span!("notification::process", receiver = self.name, r#type = "mqtt").entered();
+            let _span = tracing::info_span!(
+                "notification::process",
+                receiver = self.name,
+                r#type = "mqtt"
+            )
+            .entered();
             match NotificationFrame::try_from(msg.payload()) {
                 Ok(notification) => {
                     tracing::info!(topic = msg.topic(), notification = ?notification, "received")
