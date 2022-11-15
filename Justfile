@@ -8,8 +8,17 @@ default:
 build *args:
   cargo build {{ args }}
 
+run:
+  cargo run --bin shellymon
+
 watch:
-  cargo-watch -x 'run'
+  cargo-watch --shell 'just run'
+
+simulator:
+  cargo run --bin simulator
+
+simulator-watch:
+  cargo-watch --shell 'just simulator'
 
 setup:
     docker-compose up -d
